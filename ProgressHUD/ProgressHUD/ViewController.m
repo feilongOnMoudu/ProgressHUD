@@ -29,7 +29,8 @@
 }
 
 - (IBAction)success:(id)sender {
-    [ProgressHUD showSuccessHUDToView:self.view SuccessText:@"大龙哥"];
+    //[ProgressHUD showSuccessHUDToView:self.view SuccessText:@"大龙哥"];
+    [ProgressHUD showTextToView:self.view remindText:@"`12"];
 }
 
 - (IBAction)failure:(id)sender {

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class RemindView;
+@class RemindTextLabel;
 
 @interface ProgressHUD : UIView
 
@@ -17,6 +18,12 @@
  *
  */
 + (void)showHUDToView:(UIView *)view;
+
+/**
+ *  将提示文字放在所需的视图上
+ *
+ */
++ (void)showTextToView:(UIView *)view remindText:(NSString *)remindText;
 
 /**
  *  失败提示框
@@ -47,5 +54,11 @@
 + (RemindView *)showFailureView:(NSString *)text toView:(UIView *)view;
 
 + (RemindView *)showSuccessView:(NSString *)text toView:(UIView *)view;
+
+@end
+
+@interface RemindTextLabel : UILabel
+
++ (RemindTextLabel *)remindTextLabel:(UIView *)view remindText:(NSString *)remindText;
 
 @end

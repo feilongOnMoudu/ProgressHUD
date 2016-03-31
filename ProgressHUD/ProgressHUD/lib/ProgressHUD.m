@@ -27,6 +27,30 @@
     [[self progressHUD:view] showHUDToView:view];
 }
 
++ (void)showTextToView:(UIView *)view remindText:(NSString *)remindText{
+    [[self progressHUD:view] showTextToView:view remindText:remindText];
+}
+
+- (void)showTextToView:(UIView *)view remindText:(NSString *)remindText{
+    [RemindTextLabel remindTextLabel:view remindText:remindText].alpha = 0;
+    [UIView animateWithDuration:2
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         [RemindTextLabel remindTextLabel:view remindText:remindText].alpha = 1;
+                         [view addSubview:[RemindTextLabel remindTextLabel:view remindText:remindText]];
+                     } completion:^(BOOL finished) {
+                         [UIView animateWithDuration:1
+                                               delay:0
+                                             options:UIViewAnimationOptionCurveEaseIn
+                                          animations:^{
+                                              [RemindTextLabel remindTextLabel:view remindText:remindText].alpha = 0;
+                                          } completion:^(BOOL finished) {
+                                              [ProgressHUD hiddenHUD:view];
+                                          }];
+    }];
+}
+
 + (void)showFailureHUDToView:(UIView *)view failureText:(NSString *)text {
     [[self progressHUD:view] showFailureHUDToView:view failureText:text];
     [ProgressHUD performSelector:@selector(hiddenHUD:) withObject:nil afterDelay:3];
@@ -87,6 +111,9 @@
     [[self progressHUD:view] removeFromSuperview];
     if ([RemindView remindView:view]) {
         [[RemindView remindView:view] removeFromSuperview];
+    }
+    if ([RemindTextLabel remindTextLabel:view remindText:nil]) {
+        [[RemindTextLabel remindTextLabel:view remindText:nil] removeFromSuperview];
     }
 }
 
@@ -191,6 +218,43 @@
                                      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
                                      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [self.layer addAnimation:popAnimation forKey:nil];
+}
+
+@end
+
+@implementation RemindTextLabel
+
++(RemindTextLabel *)remindTextLabel:(UIView *)view remindText:(NSString *)remindText{
+    static RemindTextLabel * remindLabel;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^ {
+        CGFloat NewWidth ;
+        CGFloat NewHeight;
+        if (remindText.length == 0) {
+            NewWidth = 0;
+            NewHeight = 0;
+        } else {
+            NewWidth = kWidth - 100;
+            NewHeight = 40;
+        }
+        NSDictionary *dict = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
+        CGRect frame = [remindText boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 40) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading  attributes:dict context:nil];
+        if (frame.size.width > kWidth-100) {
+            frame = [remindText boundingRectWithSize:CGSizeMake(kWidth-100, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading  attributes:dict context:nil];
+            remindLabel = [[RemindTextLabel alloc] initWithFrame:CGRectMake((view.frame.size.width-NewWidth)/2-10, (view.frame.size.height-25)/2-10, kWidth-100+20, frame.size.height + 20)];
+        } else {
+            remindLabel = [[RemindTextLabel alloc] initWithFrame:CGRectMake((view.frame.size.width-frame.size.width)/2-25, (view.frame.size.height-25)/2, frame.size.width+50, NewHeight)];
+        }
+        remindLabel.layer.masksToBounds = YES;
+        remindLabel.layer.cornerRadius = 5;
+        remindLabel.numberOfLines = 0;
+        remindLabel.textAlignment = NSTextAlignmentCenter;
+        remindLabel.font = [UIFont systemFontOfSize:15];
+        remindLabel.backgroundColor = [UIColor blackColor];
+        remindLabel.text = remindText;
+        remindLabel.textColor = [UIColor whiteColor];
+    });
+    return remindLabel;
 }
 
 @end

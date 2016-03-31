@@ -8,12 +8,17 @@
 ```
 
 ```
+提示文字
+2 、[ProgressHUD showTextToView:self.view remindText:@"大龙哥"];
+```
+
+```
 成功提示
-2 、[ProgressHUD showSuccessHUDToView:self.view SuccessText:@"大龙哥"];
+3 、[ProgressHUD showSuccessHUDToView:self.view SuccessText:@"大龙哥"];
 ```
 
 ```
 失败提示
-3 、[ProgressHUD showFailureHUDToView:self.view failureText:@"大龙哥"];
+4 、[ProgressHUD showFailureHUDToView:self.view failureText:@"大龙哥"];
 ```
 

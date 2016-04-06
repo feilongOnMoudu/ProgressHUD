@@ -26,6 +26,10 @@
  */
 + (void)showProgressToView:(UIView *)view remindText:(NSString *)remindText;
 
+/**
+ *  带关闭效果的HUD
+ *
+ */
 + (void)showRemindCancleToView:(UIView *)view remindText:(NSString *)remindText;
 
 /**

@@ -21,6 +21,11 @@
 
 - (IBAction)show:(id)sender {
     [ProgressHUD showRemindCancleToView:self.view remindText:@"卧槽啊"];
+    [self performSelector:@selector(remove) withObject:nil afterDelay:3];
+}
+
+- (void)remove {
+    [ProgressHUD hiddenHUD:self.view];
 }
 
 - (void)removeHUD {

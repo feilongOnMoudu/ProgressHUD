@@ -4,7 +4,6 @@
 ```
 将HUD放在所需的视图上 自定义图片
 1 、[ProgressHUD showHUDToView:self.view];
-[ProgressHUD hiddenHUD:self.view];
 ```
 
 ```

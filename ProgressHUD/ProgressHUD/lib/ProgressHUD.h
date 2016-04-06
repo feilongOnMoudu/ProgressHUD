@@ -10,14 +10,23 @@
 
 @class RemindView;
 @class RemindTextLabel;
+@class RemindImgAndBtnView;
 
 @interface ProgressHUD : UIView
 
 /**
- *  将HUD放在所需的视图上
+ *  将HUD放在所需的视图上 自定义图片
  *
  */
 + (void)showHUDToView:(UIView *)view;
+
+/**
+ *  加转菊花HUD放在所需视图上
+ *
+ */
++ (void)showProgressToView:(UIView *)view remindText:(NSString *)remindText;
+
++ (void)showRemindCancleToView:(UIView *)view remindText:(NSString *)remindText;
 
 /**
  *  将提示文字放在所需的视图上
@@ -28,16 +37,12 @@
 /**
  *  失败提示框
  *
- *  @param view 目标视图
- *  @param text 提示文字
  */
 + (void)showFailureHUDToView:(UIView *)view failureText:(NSString *)text;
 
 /**
  *  成功提示框
  *
- *  @param view 目标视图
- *  @param text 提示文字
  */
 + (void)showSuccessHUDToView:(UIView *)view SuccessText:(NSString *)text;
 
@@ -62,3 +67,13 @@
 + (RemindTextLabel *)remindTextLabel:(UIView *)view remindText:(NSString *)remindText;
 
 @end
+
+
+@interface RemindImgAndBtnView : UIView
+
++ (RemindImgAndBtnView *)remindBtnText:(UIView *)view remindText:(NSString *)remindText;
+@end
+
+
+
+

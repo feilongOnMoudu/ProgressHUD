@@ -20,8 +20,7 @@
 }
 
 - (IBAction)show:(id)sender {
-    [ProgressHUD showHUDToView:self.view];
-    [self performSelector:@selector(removeHUD) withObject:nil afterDelay:3];
+    [ProgressHUD showRemindCancleToView:self.view remindText:@"卧槽啊"];
 }
 
 - (void)removeHUD {
@@ -30,7 +29,7 @@
 
 - (IBAction)success:(id)sender {
     //[ProgressHUD showSuccessHUDToView:self.view SuccessText:@"大龙哥"];
-    [ProgressHUD showTextToView:self.view remindText:@"大龙哥"];    
+    [ProgressHUD showTextToView:self.view remindText:@"大龙哥"];
 }
 
 - (IBAction)failure:(id)sender {

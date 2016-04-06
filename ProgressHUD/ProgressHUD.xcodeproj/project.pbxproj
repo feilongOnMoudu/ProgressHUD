@@ -15,7 +15,7 @@
 		5146006E1CABC9B70005589E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5146006C1CABC9B70005589E /* LaunchScreen.storyboard */; };
 		5146007A1CABCA070005589E /* icon_lionhead.png in Resources */ = {isa = PBXBuildFile; fileRef = 514600761CABCA070005589E /* icon_lionhead.png */; };
 		5146007B1CABCA070005589E /* icon_loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 514600771CABCA070005589E /* icon_loading.png */; };
-		5146007C1CABCA070005589E /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 514600791CABCA070005589E /* ProgressHUD.m */; };
+		515A5D951CB4F4D50086E0E2 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 515A5D941CB4F4D50086E0E2 /* ProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +31,8 @@
 		5146006F1CABC9B70005589E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		514600761CABCA070005589E /* icon_lionhead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_lionhead.png; sourceTree = "<group>"; };
 		514600771CABCA070005589E /* icon_loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_loading.png; sourceTree = "<group>"; };
-		514600781CABCA070005589E /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
-		514600791CABCA070005589E /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		515A5D931CB4F4D50086E0E2 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		515A5D941CB4F4D50086E0E2 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +92,8 @@
 			children = (
 				514600761CABCA070005589E /* icon_lionhead.png */,
 				514600771CABCA070005589E /* icon_loading.png */,
-				514600781CABCA070005589E /* ProgressHUD.h */,
-				514600791CABCA070005589E /* ProgressHUD.m */,
+				515A5D931CB4F4D50086E0E2 /* ProgressHUD.h */,
+				515A5D941CB4F4D50086E0E2 /* ProgressHUD.m */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -172,7 +172,7 @@
 			files = (
 				514600661CABC9B70005589E /* ViewController.m in Sources */,
 				514600631CABC9B70005589E /* AppDelegate.m in Sources */,
-				5146007C1CABCA070005589E /* ProgressHUD.m in Sources */,
+				515A5D951CB4F4D50086E0E2 /* ProgressHUD.m in Sources */,
 				514600601CABC9B70005589E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +326,7 @@
 				514600741CABC9B70005589E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

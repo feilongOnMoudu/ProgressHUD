@@ -27,48 +27,6 @@
     [[self progressHUD:view] showHUDToView:view];
 }
 
-+ (void)showTextToView:(UIView *)view remindText:(NSString *)remindText{
-    [[self progressHUD:view] showTextToView:view remindText:remindText];
-}
-
-- (void)showTextToView:(UIView *)view remindText:(NSString *)remindText{
-    [RemindTextLabel remindTextLabel:view remindText:remindText].alpha = 0;
-    [UIView animateWithDuration:2
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         [RemindTextLabel remindTextLabel:view remindText:remindText].alpha = 1;
-                         [view addSubview:[RemindTextLabel remindTextLabel:view remindText:remindText]];
-                     } completion:^(BOOL finished) {
-                         [UIView animateWithDuration:1
-                                               delay:0
-                                             options:UIViewAnimationOptionCurveEaseIn
-                                          animations:^{
-                                              [RemindTextLabel remindTextLabel:view remindText:remindText].alpha = 0;
-                                          } completion:^(BOOL finished) {
-                                              [ProgressHUD hiddenHUD:view];
-                                          }];
-    }];
-}
-
-+ (void)showFailureHUDToView:(UIView *)view failureText:(NSString *)text {
-    [[self progressHUD:view] showFailureHUDToView:view failureText:text];
-    [ProgressHUD performSelector:@selector(hiddenHUD:) withObject:nil afterDelay:3];
-}
-
-- (void)showFailureHUDToView:(UIView *)view failureText:(NSString *)text {
-    [view addSubview:[RemindView showFailureView:text toView:view]];
-}
-
-+ (void)showSuccessHUDToView:(UIView *)view SuccessText:(NSString *)text {
-    [[self progressHUD:view] showSuccessHUDToView:view SuccessText:text];
-    [ProgressHUD performSelector:@selector(hiddenHUD:) withObject:nil afterDelay:3];
-}
-
-- (void)showSuccessHUDToView:(UIView *)view SuccessText:(NSString *)text {
-    [view addSubview:[RemindView showSuccessView:text toView:view]];
-}
-
 - (void)showHUDToView:(UIView *)view {
     //加载背景
     UIView * bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 120)];
@@ -107,14 +65,102 @@
     [view addSubview:self];
 }
 
++ (void)showRemindCancleToView:(UIView *)view remindText:(NSString *)remindText {
+    [[self progressHUD:view] showRemindCancleToView:view remindText:remindText];
+}
+
+- (void)showRemindCancleToView:(UIView *)view remindText:(NSString *)remindText {
+    [self addSubview:[RemindImgAndBtnView remindBtnText:view remindText:remindText]];
+    [view addSubview:self];
+}
+
++ (void)showProgressToView:(UIView *)view remindText:(NSString *)remindText{
+    [[self progressHUD:view] showProgressToView:view remindText:remindText];
+}
+
+- (void)showProgressToView:(UIView *)view remindText:(NSString *)remindText{
+//    //加载背景
+    UIView * bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    bgView.backgroundColor = [UIColor blackColor];
+    bgView.alpha = 0.5;
+    bgView.layer.masksToBounds = YES;
+    bgView.layer.cornerRadius = 5;
+    bgView.center = self.center;
+    [self addSubview:bgView];
+    
+    UIView * bgView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    bgView1.backgroundColor = [UIColor clearColor];
+    bgView1.layer.masksToBounds = YES;
+    bgView1.layer.cornerRadius = 5;
+    
+    UIActivityIndicatorView *loadView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+    loadView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    loadView.center =CGPointMake(bgView1.center.x, bgView1.frame.size.height-loadView.frame.size.height);
+    [loadView startAnimating];
+    bgView1.center = self.center;
+    [bgView1 addSubview:loadView];
+    [self addSubview:bgView1];
+    
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 100, 20)];
+    label.text = remindText;
+    label.font = [UIFont systemFontOfSize:20];
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    [bgView1 addSubview:label];
+    
+    [view addSubview:self];
+}
+
++ (void)showTextToView:(UIView *)view remindText:(NSString *)remindText{
+    [[self progressHUD:view] showTextToView:view remindText:remindText];
+}
+
+- (void)showTextToView:(UIView *)view remindText:(NSString *)remindText{
+    [RemindTextLabel remindTextLabel:view remindText:remindText].alpha = 0;
+    [UIView animateWithDuration:2
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         [RemindTextLabel remindTextLabel:view remindText:remindText].alpha = 1;
+                         [self addSubview:[RemindTextLabel remindTextLabel:view remindText:remindText]];
+                         [view addSubview:self];
+                     } completion:^(BOOL finished) {
+                         [UIView animateWithDuration:1
+                                               delay:0
+                                             options:UIViewAnimationOptionCurveEaseIn
+                                          animations:^{
+                                              [RemindTextLabel remindTextLabel:view remindText:remindText].alpha = 0;
+                                          } completion:^(BOOL finished) {
+                                              [ProgressHUD hiddenHUD:view];
+                                          }];
+    }];
+}
+
++ (void)showFailureHUDToView:(UIView *)view failureText:(NSString *)text {
+    [[self progressHUD:view] showFailureHUDToView:view failureText:text];
+    [ProgressHUD performSelector:@selector(hiddenHUD:) withObject:nil afterDelay:3];
+}
+
+- (void)showFailureHUDToView:(UIView *)view failureText:(NSString *)text {
+    [self addSubview:[RemindView showFailureView:text toView:view]];
+    [view addSubview:self];
+}
+
++ (void)showSuccessHUDToView:(UIView *)view SuccessText:(NSString *)text {
+    [[self progressHUD:view] showSuccessHUDToView:view SuccessText:text];
+    [ProgressHUD performSelector:@selector(hiddenHUD:) withObject:nil afterDelay:3];
+}
+
+- (void)showSuccessHUDToView:(UIView *)view SuccessText:(NSString *)text {
+    [self addSubview:[RemindView showSuccessView:text toView:view]];
+    [view addSubview:self];
+}
+
 + (void)hiddenHUD:(UIView *)view {
+    for (UIView * bgview in [self progressHUD:view].subviews) {
+        [bgview removeFromSuperview];
+    }
     [[self progressHUD:view] removeFromSuperview];
-    if ([RemindView remindView:view]) {
-        [[RemindView remindView:view] removeFromSuperview];
-    }
-    if ([RemindTextLabel remindTextLabel:view remindText:nil]) {
-        [[RemindTextLabel remindTextLabel:view remindText:nil] removeFromSuperview];
-    }
 }
 
 @end
@@ -160,12 +206,12 @@
 }
 
 - (void)drawFailureView {
-    [self drawFailureView:self];
+    [self drawFailureView:[RemindView remindView:self]];
     [self setPopAnimation];
 }
 
 - (void)drawSuccessView {
-    [self drawSuccessView:self];
+    [self drawSuccessView:[RemindView remindView:self]];
     [self setPopAnimation];
 }
 
@@ -259,4 +305,42 @@
 
 @end
 
+@implementation RemindImgAndBtnView
+
++ (RemindImgAndBtnView *)remindBtnText:(UIView *)view remindText:(NSString *)remindText {
+    static RemindImgAndBtnView * remindImgAndBtn;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^ {
+        UIImageView * img1 = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
+        img1.image = [UIImage imageNamed:@"icon_loading"];
+        
+        NSDictionary *dict = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
+        CGRect frame = [remindText boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 40) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading  attributes:dict context:nil];
+        
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, frame.size.width, 40)];
+        label.text = remindText;
+        label.font = [UIFont systemFontOfSize:15];
+        label.textColor = [UIColor whiteColor];
+        label.textAlignment = NSTextAlignmentCenter;
+ 
+        UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"icon_lionhead"] forState:UIControlStateNormal];
+        button.frame = CGRectMake(50+frame.size.width, 10, 20, 20);
+        [button addTarget:[ProgressHUD class] action:@selector(hiddenHUD:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        remindImgAndBtn = [[RemindImgAndBtnView alloc] initWithFrame:CGRectMake((kWidth-(40+img1.frame.size.width+label.frame.size.width+button.frame.size.width))/2, (kHeight-40)/2,(img1.frame.size.width+label.frame.size.width+button.frame.size.width)+40,40)];
+        remindImgAndBtn.layer.masksToBounds = YES;
+        remindImgAndBtn.layer.cornerRadius = 5;
+        remindImgAndBtn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        
+        [remindImgAndBtn addSubview:img1];
+        [remindImgAndBtn addSubview:label];
+        [remindImgAndBtn addSubview:button];
+        
+    });
+    return remindImgAndBtn;
+}
+
+@end
 
